@@ -1,14 +1,14 @@
 import java.util.Scanner;
 
-public class ZeroMatrixProbkem_bruteforce {
-    private int m; // Number of rows
-    private int n; // Number of columns
-    private int[][] a;
+public class ZeroMatrixProblemOptimal {
+    public int m;
+    public int n;
+    public int[][] a;
 
-    public ZeroMatrixProbkem_bruteforce(int m, int n){
-        this.m = m;
-        this.n = n;
-        this.a = new int[m][n];
+    public ZeroMatrixProblemOptimal(int m, int n){
+        this.m=m;
+        this.n=n;
+        a=new int[m][n];
     }
 
     public void addvalues(){
@@ -22,51 +22,47 @@ public class ZeroMatrixProbkem_bruteforce {
     }
 
     public void display(){
-
         System.out.println("values are");
         for(int i=0;i<m;i++){
             for(int j=0;j<n;j++){
-                if(a[i][j]==-1){
-                    a[i][j]=0;
-                }
                 System.out.print(a[i][j]);
             }
             System.out.println(" ");
         }
     }
 
-    public void zermatrix(){
-        for(int i=0;i<m;i++){
-            for(int j=0;j<n;j++){
+    public void addlogic(){
+        for(int i=1;i<m;i++){
+            for(int j=1;j<n;j++){
                 if(a[i][j]==0){
-                    a[i][j]=-1;
-                    makecolumn(j);
-                    makerow(i);
+                    a[0][j]=0;
+                    a[i][0]=0;
+                }
+            }
+        }
+
+        for(int i=0;i<m;i++){
+            if(a[i][0]==0){
+                for(int j=1;j<n;j++){
+                    a[i][j]=0;
+                }
+            }
+        }
+
+        for(int j=0;j<n;j++){
+            if(a[0][j]==0){
+                for(int i=1;i<m;i++){
+                    a[i][j]=0;
                 }
             }
         }
     }
 
-
-
-    public void makecolumn(int k){
-        for(int i=0;i<m;i++){
-            a[i][k]=-1;
-        }
-    }
-
-    public void makerow(int k){
-        for(int j=0;j<n;j++){
-            a[k][j]=-1;
-        }
-    }
-
     public static void main(String[] args) {
-        ZeroMatrixProbkem_bruteforce zb= new ZeroMatrixProbkem_bruteforce(3,4);
+        ZeroMatrixProblemOptimal zb=new ZeroMatrixProblemOptimal(3,4);
         zb.addvalues();
         zb.display();
-        zb.zermatrix();
+        zb.addlogic();
         zb.display();
     }
-
 }
